@@ -50,12 +50,30 @@
  *     ] }
  **/
 
+// class ProductSearchHistory(fileName: String) {
+//   val fileName: String = fileName
+// }
+
+class ProductDb(fileName: String) {
+
+  val fileName: String = fileName
+  var db: ?? = buildFromFile()
+
+  // def findByName
+  // def addProduct
+
+  def buildFromFile
+
+  // def flushToFile
+
+}
+
 object ProductLookup {
   private val userInputPrompt = "What is the product name? "
 
   def main(args: Array[String]) = {
-    // System.out.print(userInputPrompt)
     var userInput = readLine(userInputPrompt)
+
 
     while( userWantsToContinue(userInput) ) {
       println(userInput)
