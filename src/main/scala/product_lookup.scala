@@ -58,20 +58,27 @@ import org.json4s.native.JsonMethods._
 
 class ProductDb(fileName: String) {
 
-  val fileName: String = fileName
-  // var db: ?? = buildFromFile()
+  var db = buildFromFile(fileName)
 
-  // def findByName
+  def findByName(productName: String): Boolean = {
+    true
+  }
   // def addProduct
 
-  def buildFromFile(fileName: String) = {
+  def buildFromFile(fileName: String) : JsonAST.JValue = {
+    println("Building from file: " + fileName)
     val file = io.Source.fromFile(fileName)
     val jsonString = file.getLines.mkString
     var json = parse(jsonString)
     file.close
+    println(json)
+
+    json
   }
 
-  // def flushToFile
+  def flushToFile = {
+    println("Flushing to file: " + fileName)
+  }
 
 }
 
@@ -80,12 +87,28 @@ object ProductLookup {
 
   def main(args: Array[String]) = {
     var userInput = readLine(userInputPrompt)
-
+    val products = new ProductDb("./data/products_db.json")
+    // val history = new UserRequestHistory("./data/history.json")
 
     while( userWantsToContinue(userInput) ) {
       println(userInput)
       userInput = readLine(userInputPrompt)
+      // writeToHistory(userInput, history)
+      handleUserRequest(userInput, products) //, history)
     }
+
+    products.flushToFile
+  }
+
+  def handleUserRequest(userInput: String, products: ProductDb) = {
+    if(products.findByName(userInput))
+      printProductInformation
+  }
+
+  def printProductInformation = {
+    println("Name: ")
+    println("Price: ")
+    println("Quantity on hand: ")
   }
 
   def userWantsToContinue(userInput: String) : Boolean = {
