@@ -1,4 +1,6 @@
-// package com.amyunger.products
+package com.amyunger.products
+import org.json4s._
+import org.json4s.native.JsonMethods._
 
 /**
  *
@@ -57,12 +59,17 @@
 class ProductDb(fileName: String) {
 
   val fileName: String = fileName
-  var db: ?? = buildFromFile()
+  // var db: ?? = buildFromFile()
 
   // def findByName
   // def addProduct
 
-  def buildFromFile
+  def buildFromFile(fileName: String) = {
+    val file = io.Source.fromFile(fileName)
+    val jsonString = file.getLines.mkString
+    var json = parse(jsonString)
+    file.close
+  }
 
   // def flushToFile
 
